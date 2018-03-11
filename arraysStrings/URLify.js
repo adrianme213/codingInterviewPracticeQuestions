@@ -1,5 +1,9 @@
 /*
-Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the addtional characters, and that you are given the "true" length of the string. */
+Write a method to replace all spaces in a string with
+'%20'. You may assume that the string has sufficient
+space at the end to hold the addtional characters,
+and that you are given the "true" length of the string.
+*/
 
 const assertTest = function(bool, descriptionOfBehavior) {
   if (bool) {
