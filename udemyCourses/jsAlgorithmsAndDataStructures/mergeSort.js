@@ -25,9 +25,9 @@ function mergeTwoSortedArrays(arr1, arr2) {
 console.log(mergeTwoSortedArrays([1,10,50], [2,14,99,100]))
 
 function mergeSort(arr) {
-  if(arr.length === 1) return arr;
+  if(arr.length <= 1) return arr;
   const arrFirstHalf = arr.slice(0, Math.floor(arr.length/2))
-  const arrSecondHalf = arr.slice(Math.floor(arr.length/2)) || []
+  const arrSecondHalf = arr.slice(Math.floor(arr.length/2))
 
   return mergeTwoSortedArrays(mergeSort(arrFirstHalf), mergeSort(arrSecondHalf))
 }
