@@ -14,6 +14,37 @@ class LinkedList {
     this.length = 0;
   }
 
+  get(idx) {
+    if (idx < 0 || idx > this.length) return null
+    else if (this.length === idx) return this.tail;
+
+    let count = 0;
+    let arrowPointer = this.head;
+
+    while (count < this.length) {
+      arrowPointer = arrowPointer.next;
+      count++
+    }
+
+    return arrowPointer;
+  }
+
+  insert(idx, val) {
+    if (idx < 0 || idx > this.length) return false;
+    const prev = this.get(idx-1);
+    const nodeToMoveForward = this.get(idx);
+
+    if (this.length === 0) {
+      this.unshift(val)
+    } else {
+      const newNode = new Node(val);
+      prev.next = newNode;
+      newNode.next = nodeToMoveForward;
+      this.length++
+    }
+    return true;
+  }
+
   pop() {
     if (this.length === 0) return null;
     else if (this.length === 1) {
@@ -52,14 +83,38 @@ class LinkedList {
 
     return this;
   }
+
+  set(idx, val) {
+    const foundNode = this.get(idx);
+    if (foundNode === null) return false;
+    foundNode.val = val;
+    return true;
+  }
+
+  shift() {
+    if (this.length === 0) return null;
+
+    const nextHead = this.length === 1 ? null : this.head.next;
+    this.tail = this.length === 1 ? null : this.tail;
+
+    const nodeToShift = this.head;
+    this.head = nextHead;
+    this.length--;
+    if (nodeToShift !== null) nodeToShift.next = null;
+
+    return nodeToShift
+  }
+
+  unshift(val) {
+    if (this.length === 0) {
+      return this.push(val)
+    }
+
+    const newHead = new Node(val);
+    newHead.next = this.head;
+    this.head = newHead;
+    this.length++;
+
+    return newHead;
+  }
 }
-
-var list = new LinkedList();
-list.push(1);
-list.push(2);
-var apple = list.push(3);
-
-var shouldBeThree = list.pop();
-var shouldBeTwo = list.pop();
-var shouldBeOne = list.pop();
-var shouldBeNull = list.pop();
