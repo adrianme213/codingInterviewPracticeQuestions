@@ -84,6 +84,35 @@ class LinkedList {
     return this;
   }
 
+  remove(idx) {
+    if (this.length < 0 || idx > this.length) return null
+    else if (idx === this.length) return this.pop()
+    else if (idx === 0) return this.shift()
+    const nodeToRemove = this.get(idx);
+    const previousNode = this.get(idx-1);
+    previusNode.next = nodeToRemove.next;
+    nodeToRemove.next = null;
+    this.length--;
+
+    return nodeToRemove;
+  }
+
+  reverse() {
+    let previousNode = null;
+    let currentNode = this.head;
+    const finalEnd = this.head;
+    while(currentNode !== null) {
+      const currentNodeNext = currentNode.next;
+      currentNode.next = previousNode;
+      previousNode = currentNode;
+      currentNode = currentNodeNext;
+    }
+    this.tail = finalEnd;
+    this.head = previousNode;
+
+    return this;
+  }
+
   set(idx, val) {
     const foundNode = this.get(idx);
     if (foundNode === null) return false;
