@@ -63,7 +63,7 @@ class DoublyLinkedList {
       this.tail = null;
       this.length--;
 
-      return nodeToRemove
+      return nodeToRemove;
     }
     const nodeBeforeTail = this.tail.prev;
     const nodeToRemove = this.tail;
@@ -72,18 +72,22 @@ class DoublyLinkedList {
     nodeToRemove.prev = null;
     this.length--;
 
-    return nodeToRemove
+    return nodeToRemove;
   }
 
   push(val) {
     const newNode = new Node(val);
+
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = newNode;
+      this.length++;
+      return this;
+    }
     const nodeAtTail = this.tail;
     nodeAtTail.next = newNode;
     newNode.prev = nodeAtTail;
     this.tail = newNode;
-    if (this.length === 0) {
-      this.head = newNode;
-    }
     this.length++;
 
     return this;
@@ -94,7 +98,7 @@ class DoublyLinkedList {
     else if (idx === 1) {
       return this.shift();
     } else if (idx === this.length) {
-      return this.pop()
+      return this.pop();
     }
     const nodeToRemove = this.get(idx);
     const prevNode = nodeToRemove.prev;
@@ -111,14 +115,16 @@ class DoublyLinkedList {
   reverse() {
     const newHead = this.tail;
     const newTail = this.head;
-    const arrowPointer = newHead;
+    let arrowPointer = newHead;
     while (arrowPointer !== null) {
-      const oldNext = arrPointer.next;
-      const oldPrev = arrPointer.prev;
-      arrPointer.next = oldPrev;
-      arrPointer.prev = oldNext;
-      arrPointer = arrPointer.next;
+      const oldNext = arrowPointer.next;
+      const oldPrev = arrowPointer.prev;
+      arrowPointer.next = oldPrev;
+      arrowPointer.prev = oldNext;
+      arrowPointer = arrowPointer.next;
     }
+    this.head = newHead;
+    this.tail = newTail;
 
     return this;
   }
@@ -146,7 +152,7 @@ class DoublyLinkedList {
     nodeToShift.next = null;
     this.length--;
 
-    return nodeToShift
+    return nodeToShift;
   }
 
   unshift(val) {
@@ -157,8 +163,9 @@ class DoublyLinkedList {
     const nodeToMoveForward = this.head;
     newHead.next = nodeToMoveForward;
     nodeToMoveForward.prev = newHead;
+    this.head = newHead;
     this.length++;
 
-    return newHead;
+    return this;
   }
 }
