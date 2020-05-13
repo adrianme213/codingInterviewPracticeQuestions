@@ -28,11 +28,10 @@ There is no index that satisfies the conditions in the problem statement.
 
 var pivotIndex = function(nums) {
     if(nums.length === 0) { return -1 }
-    let min = -1;
     let max = nums.length-1;
     let mid = 0;
     let bottomHalf = 0;
-    let topHalf = nums.slice(mid+1, max+1).reduce((acc, num) => { return acc + num; }, 0);
+    let topHalf = nums.slice(mid+1, max+1).reduce((acc, num) => acc + num, 0);
 
     while(mid < nums.length) {
         if (bottomHalf === topHalf) {
