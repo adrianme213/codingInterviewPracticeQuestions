@@ -43,7 +43,50 @@ class Graph {
   }
 
   DFSiterative(vertex) {
+    if(!vertex) return null;
 
+    const results=[];
+    const visitedVertices={};
+    const stack = [vertex];
+    visitedVertices[vertex] = true;
+
+    while(stack.length > 0) {
+      const currentVertex = stack.pop();
+      results.push(currentVertex);
+
+
+      this.adjacencyList[currentVertex].forEach((key, val, set) => {
+        if(!visitedVertices[val]){
+          visitedVertices[val] = true;
+          stack.push(val);
+        }
+      });
+    }
+
+    return results;
+  }
+
+  BFStraversal(vertex) {
+    if(!vertex) return null;
+
+    const results=[];
+    const visitedVertices={};
+    const queue = [vertex];
+    visitedVertices[vertex] = true;
+
+    while(queue.length > 0) {
+      const currentVertex = queue.shift();
+      results.push(currentVertex);
+
+      this.adjacencyList[currentVertex].forEach((key, val, set) => {
+        if(!visitedVertices[val]) {
+          visitedVertices[val] = true;
+          queue.push(val);
+        }
+      });
+    }
+
+    return results;
   }
 }
 
@@ -63,4 +106,4 @@ g.addEdge("D", "E");
 g.addEdge("D", "F");
 g.addEdge("E", "F");
 
-g.DFSrecursive("A");
+g.DFSiterative("A");
