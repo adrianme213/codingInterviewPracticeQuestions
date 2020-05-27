@@ -107,3 +107,4 @@ g.addEdge("D", "F");
 g.addEdge("E", "F");
 
 g.DFSiterative("A");
+g.BFStraversal("A");
