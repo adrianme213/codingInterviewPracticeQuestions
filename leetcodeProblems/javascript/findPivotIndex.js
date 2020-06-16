@@ -9,6 +9,15 @@ Example 1:
 
 Input:
 nums = [1, 7, 3, 6, 5, 6]
+28
+[28-1, 28-7, 28-3, 28-6, 28-5]
+left = nums[0];
+right = nums.slice(2).reduce((acc, num) => acc+num, 0);
+ii = 1, ii < nums.length-2;ii++
+if(left === right) return ii;
+left += nums[ii];
+right -= nums[ii+1];
+
 Output: 3
 Explanation:
 The sum of the numbers to the left of index 3 (nums[3] = 6) is equal to the sum of numbers to the right of index 3.
@@ -25,6 +34,20 @@ Explanation:
 There is no index that satisfies the conditions in the problem statement.
 
 */
+
+var pivotIndex = (nums) => {
+  if(nums.length < 3) return -1;
+  let left = 0;
+  let right = nums.slice(1).reduce((acc, num) => acc+num, 0);
+  for(let ii = 0; ii < nums.length-1; ii++) {
+    if(left === right) return ii;
+    left += nums[ii];
+    right -= nums[ii+1];
+  }
+  if(left === right) return nums.length-1;
+
+  return -1;
+}
 
 var pivotIndex = function(nums) {
     if(nums.length === 0) { return -1 }
