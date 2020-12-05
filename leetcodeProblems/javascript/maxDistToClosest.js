@@ -34,25 +34,49 @@ seats[i] is 0 or 1.
 At least one seat is empty.
 At least one seat is occupied.
 */
+/* Updated Solution in Mock Interview */
+/**
+ * @param {number[]} seats
+ * @return {number}
+ */
 var maxDistToClosest = function(seats) {
-    let minDiff = Number.MAX_SAFE_INTEGER;
-    const leftDiff = new Array(seats.length);
-    const rightDiff = new Array(seats.length);
-    console.log(seats);
+    let leftToRight = new Array(seats.length).fill(null);
+    let rightToLeft = new Array(seats.length).fill(null);
+    
+    let leftOneCount = null;
     for(let ii = 0; ii < seats.length; ii++) {
-        seats[ii] === 1 ? minDiff = 0 : minDiff++;
-        leftDiff[ii] = minDiff;
+        if(seats[ii] === 1) {
+            leftOneCount = 0;
+            leftToRight[ii] = Number.MIN_SAFE_INTEGER;
+        } else {
+            if(leftOneCount === null) {
+                leftToRight[ii] = Number.MAX_SAFE_INTEGER;
+            } else {
+                leftOneCount++;
+                leftToRight[ii] = leftOneCount;
+            }
+        }
     }
-
-    minDiff = Number.MAX_SAFE_INTEGER;
+    
+    let rightOneCount = null;
     for(let ii = seats.length-1; ii >= 0; ii--) {
-        seats[ii] === 1 ? minDiff = 0 : minDiff++;
-        rightDiff[ii] = minDiff;
+        if(seats[ii] === 1) {
+            rightOneCount = 0;
+            rightToLeft[ii] = Number.MIN_SAFE_INTEGER;
+        } else {
+            if(rightOneCount === null) {
+                rightToLeft[ii] = Number.MAX_SAFE_INTEGER;
+            } else {
+                rightOneCount++;
+                rightToLeft[ii] = rightOneCount;
+            }
+        }
     }
-
-    let maxDiff = 0;
-    for(let ii = 0; ii < seats.length; ii++) {
-        maxDiff = Math.max(maxDiff, Math.min(leftDiff[ii], rightDiff[ii]));
-    }
-    return maxDiff;
+    
+    const furthestSeatAvailable = leftToRight.map((left, ii) => {
+        return Math.min(left, rightToLeft[ii]);
+    });
+    
+    let max = Math.max(...furthestSeatAvailable);
+    return max
 };
